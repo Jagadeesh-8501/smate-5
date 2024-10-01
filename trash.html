@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pregnancy Calculator</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        .container {
+            width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        input[type="text"], input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Pregnancy Calculator</h2>
+        <form method="post">
+            <label for="lmp">First Day of Last Menstrual Period:</label>
+            <input type="text" id="lmp" name="lmp" value="<?php echo isset($_POST['lmp']) ? $_POST['lmp'] : ''; ?>" placeholder="YYYY-MM-DD" required>
+
+            <label for="cycle_length">Average Length of Cycles:</label>
+            <input type="text" id="cycle_length" name="cycle_length" value="<?php echo isset($_POST['cycle_length']) ? $_POST['cycle_length'] : '28'; ?>" placeholder="Days (defaults to 28)">
+
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" value="<?php echo isset($_POST['name']) ? $_POST['name'] : ''; ?>">
+
+            <label for="mobile">Mobile:</label>
+            <input type="text" id="mobile" name="mobile" value="<?php echo isset($_POST['mobile']) ? $_POST['mobile'] : ''; ?>">
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<?php echo isset($_POST['email']) ? $_POST['email'] : ''; ?>">
+
+            <input type="submit" value="Calculate">
+        </form>
+
+        <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $lmp = strtotime($_POST['lmp']);
+            $cycle_length = isset($_POST['cycle_length']) && $_POST['cycle_length'] != '' ? (int)$_POST['cycle_length'] : 28; 
+
+            $due_date = strtotime("+280 days", $lmp); 
+            $estimated_due_date = date("Y-m-d", $due_date);
+
+            $current_date = time();
+            $days_pregnant = floor(($current_date - $lmp) / (60 * 60 * 24));
+            $weeks_pregnant = floor($days_pregnant / 7);
+        
+            echo "<div class='result'>";
+            echo "<h3>Estimated Due Date: $estimated_due_date</h3>";
+            echo "<h3>Estimated Fetal Age: $weeks_pregnant weeks </h3>";
+            echo "</div>";
+        }
+        ?>
+    </div>
+</body>
+</html>

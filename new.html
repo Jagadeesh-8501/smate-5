@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll to Open Sliding Doors Wardrobe</title>
+<style>
+    body {
+    margin: 0;
+    height: 200vh; /* Makes the page scrollable */
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.wardrobe {
+    position: relative;
+    width: 600px; /* Width of the wardrobe */
+    height: 600px;
+    background-color: #8b4513; /* Wardrobe color */
+    overflow: hidden;
+}
+
+.door {
+    position: absolute;
+    width: 50%; /* Each door covers half the wardrobe width */
+    height: 100%;
+
+    transition: transform 0.5s; /* Smooth sliding effect */
+    z-index: 2; /* Above wardrobe content */
+}
+
+.left-door {
+    left: 0;
+    transform: translateX(0%); /* Initial position */
+}
+
+.right-door {
+    right: 0;
+    transform: translateX(0%); /* Initial position */
+}
+
+.door-image {
+    width: 100%; /* Image covers the door area */
+    height: 100%;
+    object-fit: cover; /* Maintains aspect ratio and covers the area */
+}
+
+.wardrobe-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    opacity: 0; /* Initially hidden */
+    transition: opacity 0.5s;
+    z-index: 1; /* Behind the sliding doors */
+}
+
+.shelf {
+    background-color: #ccc;
+    padding: 10px;
+    margin: 5px 0;
+    text-align: center;
+}
+.door {
+    position: absolute;
+    width: 50%; /* Each door covers half the wardrobe width */
+    height: 100%;
+    transition: transform 0.5s; /* Smooth sliding effect */
+    z-index: 2; /* Above wardrobe content */
+}
+
+</style>
+</head>
+<body>
+    <div class="wardrobe">
+        <div class="door sliding-door left-door">
+            <img src="123.jpg" alt="Sliding Door" class="door-image">
+        </div>
+        <div class="door sliding-door right-door">
+            <img src="456.jpg" alt="Sliding Door" class="door-image">
+        </div>
+        <!-- Components inside the wardrobe -->
+        <div class="wardrobe-content">
+            <div class="shelf">Shelf 1</div>
+            <div class="shelf">Shelf 2</div>
+            <div class="shelf">Shelf 3</div>
+        </div>
+    </div>
+    <script>
+//   let scrollPosition = 0;
+//   let midscrollPosition=0;
+// let lastScrollTop = 0;
+
+// window.addEventListener('scroll', () => {
+//     scrollPosition = window.scrollY;
+
+//     const leftDoor = document.querySelector('.left-door');
+//     const rightDoor = document.querySelector('.right-door');
+//     const wardrobeContent = document.querySelector('.wardrobe-content');
+
+//     if (scrollPosition > lastScrollTop) {
+//         // Scrolling down - open the sliding doors
+//         leftDoor.style.transform = 'translateX(95%)'; // Slide left door to the left by 25% (half of its width)
+//         rightDoor.style.transform = 'translateX(-95%)'; // Slide right door to the right by 25% (half of its width)
+//         wardrobeContent.style.opacity = '1'; // Show contents inside the wardrobe
+//     } else {
+//         // Scrolling up - close the sliding doors
+//         leftDoor.style.transform = 'translateX(0%)'; // Slide left door back to original
+//         rightDoor.style.transform = 'translateX(0%)'; // Slide right door back to original
+//         wardrobeContent.style.opacity = '0'; // Hide contents inside the wardrobe
+//     }
+//     lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition; // Avoid negative scroll values
+// });
+
+
+
+
+
+// 2
+// let scrollPosition = 0;
+// let lastScrollTop = 0;
+// let isAnimating = false; // Flag to check if animation is running
+
+// window.addEventListener('scroll', () => {
+//     const leftDoor = document.querySelector('.left-door');
+//     const rightDoor = document.querySelector('.right-door');
+//     const wardrobeContent = document.querySelector('.wardrobe-content');
+
+//     if (isAnimating) {
+//         // If currently animating, do not allow further scrolling
+//         window.scrollTo(0, scrollPosition);
+//         return;
+//     }
+
+//     scrollPosition = window.scrollY;
+
+//     // If not animating, start animation based on scroll direction
+//     if (scrollPosition > lastScrollTop) {
+//         // Scrolling down - open the sliding doors
+//         isAnimating = true; // Set animation flag
+//         leftDoor.style.transform = 'translateX(95%)'; // Slide left door to the left by 25%
+//         rightDoor.style.transform = 'translateX(-95%)'; // Slide right door to the right by 25%
+//         wardrobeContent.style.opacity = '1'; // Show contents inside the wardrobe
+//         document.body.style.overflow = 'hidden'; // Disable scrolling
+
+//         setTimeout(() => {
+//             // Re-enable scrolling after animation
+//             isAnimating = false;
+//             document.body.style.overflow = 'auto'; // Re-enable scrolling
+//         }, 500); // Match this duration with the CSS transition time
+//     } else {
+//         // Scrolling up - close the sliding doors
+//         isAnimating = true; // Set animation flag
+//         leftDoor.style.transform = 'translateX(0%)'; // Slide left door back to original
+//         rightDoor.style.transform = 'translateX(0%)'; // Slide right door back to original
+//         wardrobeContent.style.opacity = '0'; // Hide contents inside the wardrobe
+//         document.body.style.overflow = 'hidden'; // Disable scrolling
+
+//         setTimeout(() => {
+//             // Re-enable scrolling after animation
+//             isAnimating = false;
+//             document.body.style.overflow = 'auto'; // Re-enable scrolling
+//         }, 500); // Match this duration with the CSS transition time
+//     }
+//     lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition; // Avoid negative scroll values
+// });
+
+
+
+
+// let scrollPosition = 0;
+// let lastScrollTop = 0;
+// let isAnimating = false; // Flag to check if animation is running
+
+// window.addEventListener('scroll', () => {
+//     const leftDoor = document.querySelector('.left-door');
+//     const rightDoor = document.querySelector('.right-door');
+//     const wardrobeContent = document.querySelector('.wardrobe-content');
+
+//     if (isAnimating) {
+//         // If currently animating, do not allow further scrolling
+//         window.scrollTo(0, scrollPosition);
+//         return;
+//     }
+
+//     scrollPosition = window.scrollY;
+
+//     if (scrollPosition > lastScrollTop) {
+//         // Scrolling down - open the sliding doors
+//         isAnimating = true; // Set animation flag
+
+//         // Open left door first
+//         leftDoor.style.transform = 'translateX(-50%)'; // Slide left door to the left by 50%
+//         document.body.style.overflow = 'hidden'; // Disable scrolling
+
+//         setTimeout(() => {
+//             // Open right door after left door is halfway
+//             rightDoor.style.transform = 'translateX(50%)'; // Slide right door to the right by 50%
+//             wardrobeContent.style.opacity = '1'; // Show contents inside the wardrobe
+
+//             setTimeout(() => {
+//                 // Re-enable scrolling after animation
+//                 isAnimating = false;
+//                 document.body.style.overflow = 'auto'; // Re-enable scrolling
+//             }, 500); // Delay matches the CSS transition time for the right door
+//         }, 500); // Delay matches the CSS transition time for the left door
+//     } else {
+//         // Scrolling up - close the sliding doors
+//         isAnimating = true; // Set animation flag
+
+//         // Close right door first
+//         rightDoor.style.transform = 'translateX(0%)'; // Slide right door back to original
+
+//         setTimeout(() => {
+//             // Close left door after right door is halfway
+//             leftDoor.style.transform = 'translateX(0%)'; // Slide left door back to original
+//             wardrobeContent.style.opacity = '0'; // Hide contents inside the wardrobe
+
+//             setTimeout(() => {
+//                 // Re-enable scrolling after animation
+//                 isAnimating = false;
+//                 document.body.style.overflow = 'auto'; // Re-enable scrolling
+//             }, 500); // Delay matches the CSS transition time for the left door
+//         }, 500); // Delay matches the CSS transition time for the right door
+//     }
+
+//     lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition; // Avoid negative scroll values
+// });
+
+
+
+
+
+
+let scrollPosition = 0;
+let lastScrollTop = 0;
+let isAnimating = false;
+
+window.addEventListener('scroll', () => {
+    const leftDoor = document.querySelector('.left-door');
+    const rightDoor = document.querySelector('.right-door');
+    const wardrobeContent = document.querySelector('.wardrobe-content');
+
+    scrollPosition = window.scrollY;
+
+    // Calculate the amount of scroll relative to the window height
+    const windowHeight = window.innerHeight;
+    const doorMoveThreshold = windowHeight / 3; // Define a threshold for how far to scroll before moving the doors
+    if (scrollPosition > lastScrollTop) {
+        // Scrolling down
+        if (scrollPosition < doorMoveThreshold) {
+            // First door moves based on the first third of scroll
+            const percentageMoved = (scrollPosition / doorMoveThreshold) * 90; // Calculate percentage
+            leftDoor.style.transform = `translateX(${percentageMoved}%)`; // Move left door
+
+            if (percentageMoved >= 50) {
+                wardrobeContent.style.opacity = '1'; // Start showing content when the first door is fully open
+            }
+        } else if (scrollPosition >= doorMoveThreshold && scrollPosition < doorMoveThreshold * 2) {
+            // Second door starts moving after the first third of the scroll
+            const secondDoorScroll = scrollPosition - doorMoveThreshold;
+            const percentageMoved = (secondDoorScroll / doorMoveThreshold) * -5; // Calculate percentage
+            rightDoor.style.transform = `translateX(-${percentageMoved}%)`; // Move right door
+
+            if (percentageMoved >= 50) {
+                wardrobeContent.style.opacity = '1'; // Show content when both doors are fully open
+            }
+        }
+    } else {
+        // Scrolling up
+        if (scrollPosition < doorMoveThreshold * 2 && scrollPosition >= doorMoveThreshold) {
+            // First, close the right door
+            const secondDoorScroll = doorMoveThreshold * 2 - scrollPosition;
+            const percentageMoved = (secondDoorScroll / doorMoveThreshold) * 90; // Calculate percentage
+            rightDoor.style.transform = `translateX(-${percentageMoved}%)`; // Move right door
+
+            if (percentageMoved <= 0) {
+                wardrobeContent.style.opacity = '0'; // Hide content when the right door is fully closed
+            }
+        } else if (scrollPosition < doorMoveThreshold) {
+            // Then, close the left door
+            const firstDoorScroll = doorMoveThreshold - scrollPosition;
+            const percentageMoved = (firstDoorScroll / doorMoveThreshold) * 5; // Calculate percentage
+            leftDoor.style.transform = `translateX(-${percentageMoved}%)`; // Move left door
+
+            if (percentageMoved <= 0) {
+                wardrobeContent.style.opacity = '0'; // Hide content when both doors are fully closed
+            }
+        }
+    }
+
+    lastScrollTop = scrollPosition <= 0 ? 0 : scrollPosition; // Avoid negative scroll values
+});
+
+
+    </script>
+</body>
+</html>

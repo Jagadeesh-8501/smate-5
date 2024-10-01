@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sliding Doors Animation</title>
+    <style>
+        body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+.scroll-container {
+    height: 300vh; /* Full viewport height */
+    overflow: hidden; /* Prevent scrolling on the container itself */
+    position: relative;
+}
+
+.wardrobe {
+    position: relative;
+    width: 100rem;
+    height: 10rem;
+    overflow: hidden;
+}
+
+.door {
+    position: absolute;
+    width: 50%; /* Each door covers half the wardrobe width */
+    height: 100%;
+    background-color: #ccc; /* Placeholder color for doors */
+    transition: transform 0.5s ease-out; /* Smooth sliding effect */
+    z-index: 2; /* Above wardrobe content */
+}
+
+.left-door {
+    left: 0;
+    transform: translateX(0%);
+}
+
+.right-door {
+    right: 0;
+    transform: translateX(0%);
+}
+
+.wardrobe-content {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #f9f9f9; /* Placeholder color for content */
+    opacity: 0;
+    transition: opacity 0.5s ease-out; /* Ensure smooth fading in and out */
+    z-index: 1; /* Below doors */
+}
+
+.main-content {
+    padding: 20px;
+}
+
+    </style>
+</head>
+<body>
+    <!-- Scrollable Section with Wardrobe -->
+    <div class="scroll-container">
+        <div class="wardrobe">
+            <div class="left-door door"></div>
+            <div class="right-door door"></div>
+            <div class="wardrobe-content">Contents inside the wardrobe</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <p>Your main page content goes here...</p>
+        <!-- More content here -->
+    </div>
+
+    <script >
+        let isAnimating = false;
+let animationComplete = false; // Flag to check if animation is completed
+
+window.addEventListener('scroll', () => {
+    const leftDoor = document.querySelector('.left-door');
+    const rightDoor = document.querySelector('.right-door');
+    const wardrobeContent = document.querySelector('.wardrobe-content');
+    const scrollContainer = document.querySelector('.scroll-container');
+    
+    const scrollPosition = window.scrollY;
+    const scrollThreshold = window.innerHeight / 3; // Adjust based on how much you want to scroll
+
+    if (!animationComplete) {
+        // Freeze the body scroll while animating the doors
+        document.body.style.overflow = 'hidden';
+
+        if (!isAnimating) {
+            if (scrollPosition < scrollThreshold) {
+                // Move the left door only, based on scroll
+                const percentageMoved = (scrollPosition / scrollThreshold) * 50;
+                leftDoor.style.transform = `translateX(-${percentageMoved}%)`;
+                if (percentageMoved >= 50) {
+                    wardrobeContent.style.opacity = '1'; // Show content when left door is fully open
+                }
+            } else if (scrollPosition >= scrollThreshold && scrollPosition < scrollThreshold * 2) {
+                // Start moving the right door after the left door has moved
+                const secondDoorScroll = scrollPosition - scrollThreshold;
+                const percentageMoved = (secondDoorScroll / scrollThreshold) * 50;
+                rightDoor.style.transform = `translateX(${percentageMoved}%)`;
+                if (percentageMoved >= 50) {
+                    animationComplete = true; // Set animation complete flag
+                    document.body.style.overflow = 'auto'; // Re-enable body scroll
+                }
+            }
+            isAnimating = true;
+        }
+    } else {
+        // If animation is complete, allow scrolling of the main content
+        document.body.style.overflow = 'auto';
+    }
+});
+
+    </script>
+</body>
+</html>
